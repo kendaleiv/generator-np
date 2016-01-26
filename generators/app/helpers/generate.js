@@ -40,11 +40,7 @@ function generateTplData(props, imports) {
 }
 
 function cli(tplData, imports) {
-  var fs = imports.fs;
-  var templatePath = imports.templatePath;
-  var destinationPath = imports.destinationPath;
-
-  fs.copyTpl(templatePath('src/cli.js'), destinationPath('src/cli.js'), tplData);
+  _commonHelpers.tpl([], [{ from: 'src/cli.js', to: 'src/cli.js' }], tplData, imports);
 }
 
 function generate(files, props, imports) {
@@ -52,11 +48,13 @@ function generate(files, props, imports) {
   var tplList = files.tpl;
 
   var tplData = generateTplData(props, imports);
+  var ignores = [];
 
   if (props.cli) cli(tplData, imports);
+  if (!props.travis) ignores.push('travis.yml');
 
   _commonHelpers.copy(copyList, imports);
-  _commonHelpers.tpl(props, tplList, tplData, imports);
+  _commonHelpers.tpl(ignores, tplList, tplData, imports);
 
   return Promise.resolve(props);
 }

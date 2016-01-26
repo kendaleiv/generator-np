@@ -31,19 +31,19 @@ export function generateTplData(props, imports) {
 }
 
 export function cli(tplData, imports) {
-  const { fs, templatePath, destinationPath } = imports;
-
-  fs.copyTpl(templatePath('src/cli.js'), destinationPath('src/cli.js'), tplData);
+  tpl([], [{ from: 'src/cli.js', to: 'src/cli.js' }], tplData, imports);
 }
 
 export default function generate(files, props, imports) {
   const { copy: copyList, tpl: tplList } = files;
   const tplData = generateTplData(props, imports);
+  const ignores = [];
 
   if (props.cli) cli(tplData, imports);
+  if (!props.travis) ignores.push('travis.yml');
 
   copy(copyList, imports);
-  tpl(props, tplList, tplData, imports);
+  tpl(ignores, tplList, tplData, imports);
 
   return Promise.resolve(props);
 }

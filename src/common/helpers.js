@@ -4,10 +4,10 @@ export function copy(copyList, imports) {
   copyList.map(item => fs.copy(templatePath('../../../templates/' + item.from), destinationPath(item.to)));
 }
 
-export function tpl(props, tplList, tplData, imports) {
+export function tpl(ignores, tplList, tplData, imports) {
   const { fs, templatePath, destinationPath } = imports;
 
   tplList
-    .filter(item => !(!props.travis && item.from === 'travis.yml'))
+    .filter(item => ignores.indexOf(item.from) === -1)
     .map(item => fs.copyTpl(templatePath('../../../templates/' + item.from), destinationPath(item.to), tplData));
 }

@@ -14,13 +14,13 @@ function copy(copyList, imports) {
   });
 }
 
-function tpl(props, tplList, tplData, imports) {
+function tpl(ignores, tplList, tplData, imports) {
   var fs = imports.fs;
   var templatePath = imports.templatePath;
   var destinationPath = imports.destinationPath;
 
   tplList.filter(function (item) {
-    return !(!props.travis && item.from === 'travis.yml');
+    return ignores.indexOf(item.from) === -1;
   }).map(function (item) {
     return fs.copyTpl(templatePath('../../../templates/' + item.from), destinationPath(item.to), tplData);
   });
