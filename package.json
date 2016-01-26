@@ -3,7 +3,10 @@
   "version": "2.22.0",
   "description": "Generator for npm module with ES6+, Babel, Ava, ESlint, Travis and npm scripts",
   "files": [
-    "app/"
+    "common",
+    "templates",
+    "generators/app",
+    "generators/eslint"
   ],
   "keywords": [
     "ava",
@@ -43,6 +46,7 @@
   "scripts": {
     "audit": "nsp check package",
     "build": "babel -d ./ ./src",
+    "build:watch": "chokidar 'src/**' -c 'npm run build' --silent --initial",
     "check": "npm run audit && npm outdated --depth 0",
     "coverage": "nyc --reporter=lcov --reporter=text --reporter=html npm test",
     "coveralls": "npm run coverage && cat ./coverage/lcov.info | coveralls && rm -rf ./coverage",
@@ -50,7 +54,7 @@
     "prepare": "npm run build && npm run validate && npm run check",
     "pp": "npm run prepare",
     "test": "ava --serial",
-    "test:watch": "chokidar 'test/index.js' 'src/**' -c 'npm test' --silent --initial",
+    "test:watch": "chokidar 'test/app.js' 'src/**' -c 'npm test' --silent --initial",
     "validate": "npm run lint && npm test",
     "github-release": "conventional-github-releaser -p angular",
     "major": "pmm major",

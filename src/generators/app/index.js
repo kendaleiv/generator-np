@@ -4,10 +4,10 @@ import normalizeUrl from 'normalize-url';
 import _s from 'underscore.string';
 import yosay from 'yosay';
 
-import filesConfig from './index/files-config';
-import userInteraction from './index/user-interaction';
-import generate from './index/generate';
-import message from './index/message';
+import filesConfig from './helpers/files-config';
+import userInteraction from './helpers/user-interaction';
+import generate from './helpers/generate';
+import message from './helpers/message';
 
 module.exports = yeoman.Base.extend({
   init() {

@@ -3,10 +3,10 @@
 exports.__esModule = true;
 exports.generateKeywords = generateKeywords;
 exports.generateTplData = generateTplData;
-exports.copy = copy;
-exports.tpl = tpl;
 exports.cli = cli;
 exports['default'] = generate;
+
+var _commonHelpers = require('./../../../common/helpers');
 
 function generateKeywords(keywords) {
   return (keywords.indexOf(',') !== -1 ? keywords.split(',') : keywords.split(' ')).map(function (kw) {
@@ -39,28 +39,6 @@ function generateTplData(props, imports) {
   };
 }
 
-function copy(copyList, imports) {
-  var fs = imports.fs;
-  var templatePath = imports.templatePath;
-  var destinationPath = imports.destinationPath;
-
-  copyList.map(function (item) {
-    return fs.copy(templatePath(item.from), destinationPath(item.to));
-  });
-}
-
-function tpl(props, tplList, tplData, imports) {
-  var fs = imports.fs;
-  var templatePath = imports.templatePath;
-  var destinationPath = imports.destinationPath;
-
-  tplList.filter(function (item) {
-    return !(!props.travis && item.from === 'travis.yml');
-  }).map(function (item) {
-    return fs.copyTpl(templatePath(item.from), destinationPath(item.to), tplData);
-  });
-}
-
 function cli(tplData, imports) {
   var fs = imports.fs;
   var templatePath = imports.templatePath;
@@ -77,8 +55,8 @@ function generate(files, props, imports) {
 
   if (props.cli) cli(tplData, imports);
 
-  copy(copyList, imports);
-  tpl(props, tplList, tplData, imports);
+  _commonHelpers.copy(copyList, imports);
+  _commonHelpers.tpl(props, tplList, tplData, imports);
 
   return Promise.resolve(props);
 }

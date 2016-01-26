@@ -4,7 +4,7 @@ import helpers from 'yeoman-test';
 import test from 'ava';
 
 const tempDir = path.join(__dirname, '.temp');
-const deps = ['../../app'];
+const deps = ['../../generators/app'];
 
 function run(prompt) {
   return new Promise((resolve, reject) => {

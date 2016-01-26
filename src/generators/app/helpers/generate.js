@@ -1,3 +1,5 @@
+import { copy, tpl } from './../../../common/helpers';
+
 export function generateKeywords(keywords) {
   return (keywords.indexOf(',') !== -1 ? keywords.split(',') : keywords.split(' '))
     .map(kw => '"' + kw.trim() + '"')
@@ -26,20 +28,6 @@ export function generateTplData(props, imports) {
 
     cli: props.cli
   };
-}
-
-export function copy(copyList, imports) {
-  const { fs, templatePath, destinationPath } = imports;
-
-  copyList.map(item => fs.copy(templatePath(item.from), destinationPath(item.to)));
-}
-
-export function tpl(props, tplList, tplData, imports) {
-  const { fs, templatePath, destinationPath } = imports;
-
-  tplList
-    .filter(item => !(!props.travis && item.from === 'travis.yml'))
-    .map(item => fs.copyTpl(templatePath(item.from), destinationPath(item.to), tplData));
 }
 
 export function cli(tplData, imports) {
