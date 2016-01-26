@@ -19,6 +19,8 @@ function tpl(ignores, tplList, tplData, imports) {
   var templatePath = imports.templatePath;
   var destinationPath = imports.destinationPath;
 
+  ignores = ignores || [];
+
   tplList.filter(function (item) {
     return ignores.indexOf(item.from) === -1;
   }).map(function (item) {

@@ -31,7 +31,7 @@ export function generateTplData(props, imports) {
 }
 
 export function cli(tplData, imports) {
-  tpl([], [{ from: 'src/cli.js', to: 'src/cli.js' }], tplData, imports);
+  tpl(null, [{ from: 'src/cli.js', to: 'src/cli.js' }], tplData, imports);
 }
 
 export default function generate(files, props, imports) {

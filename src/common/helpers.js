@@ -7,6 +7,8 @@ export function copy(copyList, imports) {
 export function tpl(ignores, tplList, tplData, imports) {
   const { fs, templatePath, destinationPath } = imports;
 
+  ignores = ignores || [];
+
   tplList
     .filter(item => ignores.indexOf(item.from) === -1)
     .map(item => fs.copyTpl(templatePath('../../../templates/' + item.from), destinationPath(item.to), tplData));

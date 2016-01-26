@@ -40,7 +40,7 @@ function generateTplData(props, imports) {
 }
 
 function cli(tplData, imports) {
-  _commonHelpers.tpl([], [{ from: 'src/cli.js', to: 'src/cli.js' }], tplData, imports);
+  _commonHelpers.tpl(null, [{ from: 'src/cli.js', to: 'src/cli.js' }], tplData, imports);
 }
 
 function generate(files, props, imports) {
